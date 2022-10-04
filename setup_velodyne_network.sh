@@ -16,12 +16,11 @@ if [ -z "$VELODYNE_ADAPTOR_MAC" ]
 then
   echo "No matching mac address found with prefix $ADAPTOR_VENDOR"
 else
-  echo "$RULES_TEMPLATE" |
-  sed -e "s/%MAC_ADDR%/$VELODYNE_ADAPTOR_MAC/g" > $RULES_LOCATION
+  echo "$RULES_TEMPLATE" | sed -e "s/%MAC_ADDR%/$VELODYNE_ADAPTOR_MAC/g" | sudo tee $RULES_LOCATION > /dev/null
   echo "Saved udev rules file to $RULES_LOCATION"
 fi
 
-# Append to network interfaces file
+# Overwrite network interfaces file
 INTERFACES_LOCATION=/etc/network/interfaces
 INTERFACES_DOC=$(cat <<EOF
 # interfaces(5) file used by ifup(8) and ifdown(8)
@@ -36,7 +35,7 @@ up route add 192.168.1.201 velodyne0
 EOF
 )
 
-echo "$INTERFACES_DOC" > $INTERFACES_LOCATION
+echo "$INTERFACES_DOC" | sudo tee $INTERFACES_LOCATION > /dev/null
 echo "Added velodyn0 network interface at $INTERFACES_LOCATION"
 
 # Add user to dialout group

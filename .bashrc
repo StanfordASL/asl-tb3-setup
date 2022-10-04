@@ -118,6 +118,7 @@ fi
 
 export PATH=/usr/local/cuda-10.2/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH
+export LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1
 export TURTLEBOT3_MODEL='burger'
 source /home/aa274/ros_catkin_ws/install/setup.bash
 source /home/aa274/catkin_ws/devel/setup.bash

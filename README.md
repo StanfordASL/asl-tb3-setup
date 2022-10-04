@@ -1,5 +1,5 @@
 ## Setting up a new TurtleBot3 from the [AA274](https://asl.stanford.edu/aa274a) system image:
-1. Host machine setup:[](#host_machine_setup)
+1. Host machine setup:
     - Install [Ubuntu 18.04](https://releases.ubuntu.com/18.04/)
     - Install [NVIDIA SDK Manager](https://developer.nvidia.com/nvidia-sdk-manager)
     - Follow the first 7 steps at [kdb373] with Target Hardware Jetson TX2 and JetPack Version 4.6.2
@@ -16,30 +16,43 @@
     - Download the AA274 system image from the [Releases](https://github.com/schmrlng/turtlebot3_setup/releases) page and overwrite the default system image:
         ```
         wget https://github.com/schmrlng/turtlebot3_setup/releases/download/202209/aa274.img
-        cp aa274.img bootloader/system.img
+        sudo cp aa274.img bootloader/system.img
         ```
     - Your working directory (check with `pwd`) should be `~/nvidia/nvidia_sdk/JetPack_4.6.2_Linux_JETSON_TX2_TARGETS/Linux_For_Tegra` at this point, which will be assumed for all steps below.
 2. Connect the Jetson TX2 to power and to the host machine via the micro USB port. All other connections may be removed for easier access to the carrier board RECOVERY and RESET buttons.
 3. With the TX2 powered on, hold down the RECOVERY button and press the RESET button to boot the TX2 into recovery mode.
 4. On the host machine, run
     ```
-    sudo ./flash.sh -r cti/tx2/orbitty mmcblk0p1
+    sudo ./flash.sh -r cti/tx2/orbitty/base mmcblk0p1
     ```
    to flash the AA274 system image onto the TX2.
-5. Connect a monitor (HDMI) and mouse/keyboard (USB3) to the TX2 and RESET the board. Once it boots up, log in to the existing aa274 account (password: aa274) and use the GUI to connect to WiFi.
-6. Now connect the TX2 to the Velodyne (Ethernet, not micro USB -- we no longer need the adapter) and the TB3 OpenCR board (USB3) and reset/power cycle it.
+5. Connect a monitor (HDMI) and mouse/keyboard (USB3) to the TX2 and RESET the board. Once it boots up, log in to the existing `aa274` account (password: `aa274`) and use the GUI to connect to WiFi. After connecting, go to "Edit Connections..." under the networking menu (alternatively "Network Connections" from applications/search) and edit the WiFi connection so that "General -> All users may connect to this network" is checked; this last step ensures that the robot will connect to WiFi on startup.
+6. Now connect the TX2 to (i) the Velodyne (Ethernet, not micro USB -- we no longer need the adapter), (ii) the TB3 OpenCR board (USB3), and (iii) the Logitech C270 camera (USB3), and power cycle the robot.
 7. Log into the TX2 from the host machine (`ssh aa274@turtlebot.local`) and run
     ```
     cd turtlebot3_setup
-    sudo ./setup_velodyne_network.sh
-    sudo ./flash_opencr_noetic.sh  # NOTE: this command often needs to be run twice
-    sudo ./change_hostname.sh
+    git pull
+    ./setup_velodyne_network.sh
+    ./flash_opencr_noetic.sh  # NOTE: this command often needs to be run twice
+    ./change_hostname.sh
     ```
    where for the last command enter the name (converted to all lowercase) printed on the label on the Velodyne.
-8. The robot should now be ready to go!
+8. After a short wait (the TX2 is rebooting), you should now be able to log into the robot using its new/unique name (`ssh aa274@$NAME.local`). On the robot, update the [`asl_turtlebot`](https://github.com/StanfordASL/asl_turtlebot) package to make sure it's running the latest version:
+    ```
+    cd ~/catkin_ws/src/asl_turtlebot
+    git pull
+    ```
+9. The robot should now be ready to go! Test it by running (on the robot):
+    ```
+    roslaunch asl_turtlebot systems_test.launch
+    ```
+   and on the host machine (after editing/`source`-ing [`rostb3.sh`](https://github.com/StanfordASL/asl_turtlebot/blob/master/rostb3.sh)):
+    ```
+    roslaunch asl_turtlebot systems_test_host.launch
+    ```
 
 ## Creating the AA274 system image (for reference; in most cases you should not need to do this!):
-1. Complete the ["Host machine setup"](#host_machine_setup) instructions above.
+1. Complete the ["Host machine setup"](#setting-up-a-new-turtlebot3-from-the-aa274-system-image) instructions above.
 2. Connect the Jetson TX2 to power and to the host machine via the micro USB port. All other connections may be removed for easier access to the carrier board RECOVERY and RESET buttons.
 3. With the TX2 powered on, hold down the RECOVERY button and press the RESET button to boot the TX2 into recovery mode.
 4. Install the vanilla OS/BSP by running (on the host machine):
@@ -66,7 +79,7 @@
     ```
 8. Connect the TX2 to the host machine (micro USB) and RESET it into RECOVERY mode. Create the system image by running (on the host machine):
     ```
-    ./flash.sh -r -k APP -G aa274.img jetson-tx2 mmcblk0p1
+    sudo ./flash.sh -r -k APP -G aa274.img jetson-tx2 mmcblk0p1
     ```
    The image will be saved to `./aa274.img` (which, if you've been following the instructions above, should correspond to the full path `~/nvidia/nvidia_sdk/JetPack_4.6.2_Linux_JETSON_TX2_TARGETS/Linux_For_Tegra/aa274.img`).
 
