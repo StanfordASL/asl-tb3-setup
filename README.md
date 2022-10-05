@@ -20,7 +20,8 @@
         ```
     - Your working directory (check with `pwd`) should be `~/nvidia/nvidia_sdk/JetPack_4.6.2_Linux_JETSON_TX2_TARGETS/Linux_For_Tegra` at this point, which will be assumed for all steps below.
 2. Connect the Jetson TX2 to power and to the host machine via the micro USB port. All other connections may be removed for easier access to the carrier board RECOVERY and RESET buttons.
-3. With the TX2 powered on, hold down the RECOVERY button and press the RESET button to boot the TX2 into recovery mode.
+3. With the TX2 powered on, hold down the RECOVERY button and tap the RESET button to boot the TX2 into recovery mode.
+![tb3_tx2_reset_recovery](https://user-images.githubusercontent.com/4130030/193955389-d0d68cb3-29ac-4d21-8450-1148f5311f5b.jpg)
 4. On the host machine, run
     ```
     sudo ./flash.sh -r cti/tx2/orbitty/base mmcblk0p1
@@ -33,7 +34,7 @@
     cd turtlebot3_setup
     git pull
     ./setup_velodyne_network.sh
-    ./flash_opencr_noetic.sh  # NOTE: this command often needs to be run twice
+    ./flash_opencr_noetic.sh  # NOTE: this command sometimes needs to be run twice (check output for errors)
     ./change_hostname.sh
     ```
    where for the last command enter the name (converted to all lowercase) printed on the label on the Velodyne.
