@@ -13,10 +13,9 @@
         sudo ./install.sh
         cd ..
         ```
-    - Download the AA274 system image from the [Releases](https://github.com/schmrlng/turtlebot3_setup/releases) page and overwrite the default system image:
+    - Download the AA274 system image from this [Google Drive folder](https://drive.google.com/drive/folders/10Uu6nRAyq2QFN7jSopedds5FCW7RafQz?usp=sharing) and overwrite the default system image:
         ```
-        wget https://github.com/schmrlng/turtlebot3_setup/releases/download/202209/aa274.img
-        sudo cp aa274.img bootloader/system.img
+        sudo cp ~/Downloads/aa274.img bootloader/system.img  # NOTE: modify path of download as appropriate
         ```
     - Your working directory (check with `pwd`) should be `~/nvidia/nvidia_sdk/JetPack_4.6.2_Linux_JETSON_TX2_TARGETS/Linux_For_Tegra` at this point, which will be assumed for all steps below.
 2. Connect the Jetson TX2 to power and to the host machine via the micro USB port. All other connections may be removed for easier access to the carrier board RECOVERY and RESET buttons.
@@ -71,7 +70,7 @@
     ```
     sudo apt update
     sudo apt upgrade
-    git clone https://github.com/schmrlng/turtlebot3_setup.git
+    git clone https://github.com/StanfordASL/turtlebot3_setup.git
     cd turtlebot3_setup
     ./build_noetic_and_deps.sh
     ./install_ml_frameworks.sh
