@@ -40,3 +40,6 @@ echo "Added velodyn0 network interface at $INTERFACES_LOCATION"
 
 # Add user to dialout group
 sudo usermod -a -G dialout $USER
+
+# Turn WiFi power management off
+sudo sed -i s/3/2/g /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
