@@ -13,7 +13,7 @@
         sudo ./install.sh
         cd ..
         ```
-    - Download the AA274 system image from this [Google Drive folder](https://drive.google.com/drive/folders/10Uu6nRAyq2QFN7jSopedds5FCW7RafQz?usp=sharing) and overwrite the default system image:
+    - Download the AA274 system image from this [Google Drive folder](https://drive.google.com/drive/folders/10Uu6nRAyq2QFN7jSopedds5FCW7RafQz?usp=sharing) and copy it into the appropriate directory:
         ```
         sudo cp ~/Downloads/aa274.img bootloader/system.img  # NOTE: modify path of download as appropriate
         ```
