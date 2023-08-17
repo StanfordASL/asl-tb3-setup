@@ -17,10 +17,10 @@ micromamba create -n ros_env -c conda-forge -c robostack-staging ros-humble-ros-
 
 # pull sources to build
 mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
-git clone -b ros2-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
-git clone -b ros2-devel https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
-git clone -b ros2-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
-git clone -b ros2-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
+git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 git clone https://github.com/StanfordASL/tb3-driver.git
 
 # pull pre-built rosdep packages
