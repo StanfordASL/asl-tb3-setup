@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # install micromamba
-"${SHELL}" <(curl -L micro.mamba.pm/install.sh)
+"${SHELL}" <(curl -L micro.mamba.pm/install.sh) < /dev/null
 
 # install robostack
 micromamba create -n ros_env -c conda-forge -c robostack-staging ros-humble-ros-base -y
