@@ -30,7 +30,7 @@ micromamba run -n ros_env rosdep init
 micromamba run -n ros_env rosdep update
 micromamba run -n ros_env rosdep install --from-paths ~/ros2_ws/src --skip-keys "nav2_bringup rviz2 cartographer_ros" -i -r -y
 # OpenGL and GLX is required by slam_toolbox
-micromamba install -n ros_env mesalib mesa-libgl-devel-cos7-aarch64 libglvnd-glx-cos7-aarch64 -y
+micromamba install -n ros_env mesalib libglvnd-glx-cos7-aarch64 -y
 
 # build driver
 micromamba run -n ros_env --cwd ~/ros2_ws colcon build --packages-up-to asl_tb3_driver
