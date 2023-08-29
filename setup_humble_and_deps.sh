@@ -21,12 +21,16 @@ git clone -b humble-devel https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 git clone -b humble-devel https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
 git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3.git
 git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone -b humble-devel https://github.com/ros-drivers/velodyne.git
+git clone -b humble https://github.com/SteveMacenski/slam_toolbox.git
 git clone https://github.com/StanfordASL/asl-tb3-driver.git
 
 # pull pre-built rosdep packages
 micromamba run -n ros_env rosdep init
 micromamba run -n ros_env rosdep update
 micromamba run -n ros_env rosdep install --from-paths ~/ros2_ws/src --skip-keys "nav2_bringup rviz2 cartographer_ros" -i -r -y
+# OpenGL and GLX is required by slam_toolbox
+micromamba install -n ros_env mesalib libglvnd-glx-cos7-aarch64 -y
 
 # build driver
 micromamba run -n ros_env --cwd ~/ros2_ws colcon build --packages-up-to asl_tb3_driver
