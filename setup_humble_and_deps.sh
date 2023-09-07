@@ -5,8 +5,8 @@ set -e
 # remove ROS1 to save space
 rm -rf ~/catkin_ws
 rm -rf ~/ros_catkin_ws
-sudo apt remove "python3*"
-sudo apt autoremove
+sudo apt remove "python3*" -y
+sudo apt autoremove -y
 
 # install micromamba
 "${SHELL}" <(curl -L micro.mamba.pm/install.sh) < /dev/null
